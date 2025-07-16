@@ -1,0 +1,22 @@
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Registro de Visitas</h4>
+            <div class="card shadow-sm p-3">
+                <form action="{% url 'App_AccesoCiudadano:registrar_visitas' %}" method="post">
+                    {% csrf_token %}
+                    {{formulario.as_p}}
+                    <button name="submit">Guardar</button>
+                </form>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+</div>
+
+{% endblock %}

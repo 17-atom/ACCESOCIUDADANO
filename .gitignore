@@ -1,0 +1,9 @@
+ac_env/
+__pycache__/
+static/bootstrap-icons-1.13.1
+static/img/
+env/
+venv/
+.env
+*.sqlite3
+staticfiles/

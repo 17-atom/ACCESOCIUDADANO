@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Acceso al Sistema{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .login-container {
+            max-width: 450px;
+            width: 100%;
+            padding: 2rem;
+        }
+        .brand-logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .brand-logo img {
+            max-height: 80px;
+        }
+    </style>
+    
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+    <div class="login-container">
+        {% block content %}
+        <!-- Contenido del login irá aquí -->
+        {% endblock %}
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

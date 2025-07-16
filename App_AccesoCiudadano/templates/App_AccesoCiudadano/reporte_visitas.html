@@ -1,0 +1,81 @@
+{% extends "App_AccesoCiudadano/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <h2 class="mb-4">Registro de Visitas</h2>
+
+    <!-- Tabla Dinámica -->
+    <div class="card shadow-sm">
+        <div class="card-body p-0"> 
+            <div class="table-responsive">
+                <table id="tabla-visitante" class="table table-striped table-hover mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Fecha/Hora Entrada</th>
+                            <th>Visitante</th>
+                            <th>DNI</th>
+                            <th>Motivo</th>
+                            <th>Área</th>
+                            <th>Responsable</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contenido-tabla">
+                        {% include 'partials/tabla_reporte.html' %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+let tabla;
+
+$(document).ready(function () {
+    if ($.fn.DataTable.isDataTable('#tabla-visitante')) {
+        $('#tabla-visitante').DataTable().destroy();
+    }
+
+    tabla = $('#tabla-visitante').DataTable({
+        responsive: true,
+        language: {
+            url: "{% static 'datatables/lang/es-ES.json' %}"
+        },
+        pageLength: 5,
+        order: [[0, 'desc']]
+    });
+
+    setInterval(recargarTablaVisitas, 10000);
+});
+
+function recargarTablaVisitas() {
+    $.ajax({
+        url: "{% url 'App_AccesoCiudadano:ajax_reporte_visitas' %}",
+        type: "GET",
+        dataType: "html",
+        success: function (data) {
+            $('#contenido-tabla').html(data); // Reemplaza el tbody
+
+            tabla.clear();
+            $('#contenido-tabla tr').each(function () {
+                const rowData = [];
+                $(this).find('td').each(function () {
+                    rowData.push($(this).html()); // Mantiene el contenido HTML con estilos
+                });
+                if (rowData.length > 0) {
+                    tabla.row.add(rowData);
+                }
+            });
+            tabla.draw();
+        },
+        error: function () {
+            console.error("Error al recargar la tabla.");
+        }
+    });
+}
+</script>
+{% endblock %}

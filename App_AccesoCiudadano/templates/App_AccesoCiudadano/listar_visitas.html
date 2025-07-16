@@ -1,0 +1,29 @@
+{% extends "App_AccesoCiudadano/base.html" %}
+{% block content %}
+<table id="tabla-visitante" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Visitante (DNI)</th>
+            <th>Área</th>
+            <th>Fecha/Hora Entrada</th>
+            <th>Responsable Área</th>
+            <th>Motivo</th>
+            <th>Fecha/Hora Salida</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for visita in visitas %}
+        <tr>
+            <td>{{ visita.visitante.nombre }} ({{ visita.visitante.dni }})</td>
+            <td>{{ visita.area.nombre_area }}</td>
+            <td>{{ visita.fecha_entrada }}</td>
+            <td>{{ visita.area.responsable_actual }}</td>
+            <td> {{visita.motivo}} </td>
+            <td> {{visita.fecha_salida}}</td>
+            <td></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

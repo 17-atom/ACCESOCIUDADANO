@@ -1,0 +1,22 @@
+{% for visita in rpt_visitas %}
+<tr>
+    <td>{{ visita.fecha_entrada|date:"Y-m-d H:i" }}</td>
+    <td>{{ visita.visitante.nombre }} {{ visita.visitante.apellidos }}</td>
+    <td>{{ visita.visitante.dni }}</td>
+    <td>{{ visita.motivo }}</td>
+    <td>{{ visita.area }}</td>
+    <td>{{ visita.area.responsable_actual }}</td>
+    <td>
+        {% if visita.fecha_salida %}
+            <span class="badge bg-success">Finalizada</span>
+        {% else %}
+            <span class="badge bg-warning text-dark">En curso</span>
+        {% endif %}
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="7" class="text-center">No hay visitas registradas.</td>
+</tr>
+{% endfor %}
+

@@ -1,0 +1,29 @@
+{% extends "App_AccesoCiudadano/base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="bi bi-person-fill-add me-2"></i>Editar visitante</h5>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'App_AccesoCiudadano:editar_visitante' visitante.id %}" method="post">
+                        {% csrf_token %}
+                        {{ formulario.as_p }}
+                        <div class="d-flex justify-content-between mt-3">
+                            <button name="submit" class="btn btn-outline-primary d-inline-flex align-items-center fs-5">
+                                <i class="bi bi-arrow-clockwise me-2 fs-4"></i>Actualizar
+                            </button>
+                            <a href="{% url 'App_AccesoCiudadano:registrar_visitante' %}" 
+                               class="btn btn-outline-secondary d-inline-flex align-items-center fs-5">
+                                <i class="bi bi-arrow-left me-2 fs-4"></i>Retornar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

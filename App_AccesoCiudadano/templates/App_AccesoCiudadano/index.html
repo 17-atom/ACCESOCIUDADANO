@@ -1,0 +1,105 @@
+{% extends "App_AccesoCiudadano/base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow-lg rounded-4 p-4">
+    <div class="mb-4">
+      <h2 class="fw-bold text-primary">
+        <i class="bi bi-speedometer2 me-2"></i> Panel de Control
+      </h2>
+      <p class="text-muted">Resumen general del sistema de registro de visitas</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Gráfico de visitas -->
+      <div class="col-md-6 d-flex align-items-center justify-content-center">
+        <div style="width: 100%; max-height: 320px;">
+          <canvas id="graficoVisitas"></canvas>
+        </div>
+      </div>
+
+      <!-- Estadísticas -->
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-3">
+          <div class="card-body">
+            <h5 class="card-title text-center text-dark fw-bold mb-3">Estadísticas del Día</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Total visitantes registrados
+                <span class="badge bg-primary rounded-pill">{{ total_clientes }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Visitas hoy
+                <span class="badge bg-secondary rounded-pill">{{ visitas_hoy }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Entradas registradas
+                <span class="badge bg-success rounded-pill">{{ entradas_hoy }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Salidas registradas
+                <span class="badge bg-danger rounded-pill">{{ salidas_hoy }}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Visitas en curso
+                <span class="badge bg-warning text-dark rounded-pill">{{ en_curso }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const ctx = document.getElementById('graficoVisitas').getContext('2d');
+  const totalVisitas = {{ entradas_hoy }} + {{ salidas_hoy }} + {{ en_curso }};
+
+  if (totalVisitas > 0) {
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: [
+          'Entradas ({{ entradas_hoy }})',
+          'Salidas ({{ salidas_hoy }})',
+          'En Curso ({{ en_curso }})'
+        ],
+        datasets: [{
+          data: [{{ entradas_hoy }}, {{ salidas_hoy }}, {{ en_curso }}],
+          backgroundColor: ['#198754', '#dc3545', '#ffc107'],
+          borderColor: ['#fff', '#fff', '#fff'],
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          },
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                const value = context.raw;
+                const percentage = Math.round((value / total) * 100);
+                return `${context.label}: ${value} (${percentage}%)`;
+              }
+            }
+          }
+        }
+      }
+    });
+  } else {
+    ctx.font = '16px Arial';
+    ctx.fillStyle = '#999';
+    ctx.textAlign = 'center';
+    ctx.fillText('No hay datos de visitas hoy', ctx.canvas.width / 2, ctx.canvas.height / 2);
+  }
+});
+</script>
+{% endblock %}
