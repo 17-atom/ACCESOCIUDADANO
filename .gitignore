@@ -1,9 +1,30 @@
-ac_env/
-__pycache__/
-static/bootstrap-icons-1.13.1
-static/img/
+# Entorno virtual
 env/
 venv/
-.env
+
+# Django / Python
+*.pyc
+__pycache__/
 *.sqlite3
+*.log
+
+# Archivos de configuración sensibles
+.env
+
+# Archivos y carpetas de Django generadas
 staticfiles/
+ac_env/
+
+# Archivos de editor/IDE
+.vscode/
+.idea/
+
+# Bootstrap Icons locales (si usas CDN)
+static/bootstrap-icons-1.13.1/
+
+# Imágenes locales que no quieras subir (opcional)
+static/img/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
