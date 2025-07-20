@@ -10,7 +10,7 @@ services:
     name: accesociudadano
     runtime: python
     buildCommand: './build.sh'
-    startCommand: 'gunicorn AccesoCiudadano.wsgi:application'
+    startCommand: gunicorn AccesoCiudadano.wsgi:application
     envVars:
       - key: DATABASE_URL
         fromDatabase:
