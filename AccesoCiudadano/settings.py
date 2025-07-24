@@ -49,6 +49,9 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+#Permitir iframe solo para el dominio del Portal (PTE)
+X_FRAME_OPTIONS = 'ALLOW-FROM https://www.transparencia.gob.pe'
+
 ROOT_URLCONF = 'AccesoCiudadano.urls'
 
 TEMPLATES = [
