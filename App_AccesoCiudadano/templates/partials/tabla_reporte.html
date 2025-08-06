@@ -6,7 +6,7 @@
     <td>{{ visita.motivo }}</td>
     <td>{{ visita.area }}</td>
     <td>{{ visita.area.responsable_actual }}</td>
-    <td>{{visita.fecha_salida}} - {{visita.fecha_entrada}}</td>
+    <td>{{visita.get_duracion_formateada}}</td>
     <td>
         {% if visita.fecha_salida %}
             <span class="badge bg-success">Finalizada</span>
