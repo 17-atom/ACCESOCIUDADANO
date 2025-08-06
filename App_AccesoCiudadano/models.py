@@ -77,5 +77,21 @@ class Visita(models.Model):
     def __str__(self):
         return f"Visita de {self.visitante} a {self.area.nombre_area}"
 
+    def get_duracion_formateada(self):
+        if self.fecha_entrada and self.fecha_salida:
+            duracion = self.fecha_salida - self.fecha_entrada
+            total_segundos = int(duracion.total_seconds())
+            horas = total_segundos // 3600
+            minutos = (total_segundos % 3600) // 60
+
+            partes = []
+            if horas > 0:
+                partes.append(f"{horas}h")
+            if minutos > 0 or horas == 0:
+                partes.append(f"{minutos}m")
+            return " ".join(partes)
+        return "Sin salida"
+
+    
     class Meta:
         ordering = ['-fecha_entrada']
