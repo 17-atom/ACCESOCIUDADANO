@@ -33,6 +33,17 @@
 {% endblock %}
 
 {% block extra_scripts %}
+<!-- DataTables Exportación -->
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+<!-- CSS Opcional si lo haces en base.html -->
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+
 <script>
 let tabla;
 
@@ -43,6 +54,31 @@ $(document).ready(function () {
 
     tabla = $('#tabla-visitante').DataTable({
         responsive: true,
+        dom: 'Bfrtip', //Agrega botones arriba de la tabla
+        buttons:[
+        {
+            extend: 'copyHtml5',
+            text: 'Copiar'
+        },
+        {
+            extend: 'csvHtml5',
+            text: 'CSV'
+        },
+        {
+           extend: 'excelHtml5',
+           text: 'Excel' 
+        },
+        {
+            extend: 'pdfHtml5',
+            text: 'PDF'
+        },
+        {
+            extend: 'print',
+            text: 'Imprimir'
+        }
+
+        
+        ]
         language: {
             url: "{% static 'datatables/lang/es-ES.json' %}"
         },
