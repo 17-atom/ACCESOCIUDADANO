@@ -56,28 +56,27 @@ $(document).ready(function () {
         responsive: true,
         dom: 'Bfrtip', //Agrega botones arriba de la tabla
         buttons:[
-        {
-            extend: 'copyHtml5',
-            text: 'Copiar'
-        },
-        {
-            extend: 'csvHtml5',
-            text: 'CSV'
-        },
-        {
-           extend: 'excelHtml5',
-           text: 'Excel' 
-        },
-        {
-            extend: 'pdfHtml5',
-            text: 'PDF'
-        },
-        {
-            extend: 'print',
-            text: 'Imprimir'
-        }
-
-        
+            {
+                extend: 'copyHtml5',
+                text: 'Copiar'
+            },
+            {
+                extend: 'csvHtml5',
+                text: 'CSV'
+            },
+            {
+                extend: 'excelHtml5',
+                text: 'Excel' 
+            },
+            {
+                extend: 'pdfHtml5',
+                text: 'PDF'
+            },
+            {
+                extend: 'print',
+                text: 'Imprimir'
+            }
+      
         ]
         language: {
             url: "{% static 'datatables/lang/es-ES.json' %}"
