@@ -33,6 +33,12 @@
 {% endblock %}
 
 {% block extra_scripts %}
+<!-- jQuery (necesario para DataTables) -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+<!-- DataTables núcleo -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
 <!-- DataTables Exportación -->
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
@@ -41,8 +47,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 
-<!-- CSS Opcional si lo haces en base.html -->
+<!-- CSS para botones (puede ir también en base.html) -->
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
 <script>
 let tabla;
@@ -54,8 +61,8 @@ $(document).ready(function () {
 
     tabla = $('#tabla-visitante').DataTable({
         responsive: true,
-        dom: 'Bfrtip', //Agrega botones arriba de la tabla
-        buttons:[
+        dom: 'Bfrtip',
+        buttons: [
             {
                 extend: 'copyHtml5',
                 text: 'Copiar'
@@ -66,7 +73,7 @@ $(document).ready(function () {
             },
             {
                 extend: 'excelHtml5',
-                text: 'Excel' 
+                text: 'Excel'
             },
             {
                 extend: 'pdfHtml5',
@@ -76,8 +83,7 @@ $(document).ready(function () {
                 extend: 'print',
                 text: 'Imprimir'
             }
-      
-        ]
+        ],
         language: {
             url: "{% static 'datatables/lang/es-ES.json' %}"
         },
@@ -94,18 +100,19 @@ function recargarTablaVisitas() {
         type: "GET",
         dataType: "html",
         success: function (data) {
-            $('#contenido-tabla').html(data); // Reemplaza el tbody
-
+            $('#contenido-tabla').html(data);
             tabla.clear();
+
             $('#contenido-tabla tr').each(function () {
                 const rowData = [];
                 $(this).find('td').each(function () {
-                    rowData.push($(this).html()); // Mantiene el contenido HTML con estilos
+                    rowData.push($(this).html());
                 });
                 if (rowData.length > 0) {
                     tabla.row.add(rowData);
                 }
             });
+
             tabla.draw();
         },
         error: function () {
@@ -114,4 +121,5 @@ function recargarTablaVisitas() {
     });
 }
 </script>
+
 {% endblock %}
