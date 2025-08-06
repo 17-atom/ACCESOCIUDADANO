@@ -63,10 +63,7 @@ $(document).ready(function () {
         responsive: true,
         dom: 'Bfrtip',
         buttons: [
-            {
-                extend: 'copyHtml5',
-                text: 'Copiar'
-            },
+
             {
                 extend: 'csvHtml5',
                 text: 'CSV'
@@ -79,10 +76,6 @@ $(document).ready(function () {
                 extend: 'pdfHtml5',
                 text: 'PDF'
             },
-            {
-                extend: 'print',
-                text: 'Imprimir'
-            }
         ],
         language: {
             url: "{% static 'datatables/lang/es-ES.json' %}"
